@@ -470,11 +470,21 @@ body.logged-in {
     overflow-x: hidden;
   }
 
+  body.logged-in {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+
+  body.login-locked {
+    overflow: hidden;
+  }
+
   .app-container {
     padding: 10px;
     padding-bottom: 20vh; /* Space for browser bottom bar */
     gap: 10px;
     height: auto;
+    min-height: 100vh;
   }
 
   .login-card {
