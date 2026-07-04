@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MiLife Prototype | Pro Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div id="loginOverlay" class="login-overlay">
+        <div class="login-card">
+            <div class="login-badge">Secure Entry</div>
+            <h1>MiLife Access</h1>
+            <p>Enter your ID and password to open your branch of the tree.</p>
+            <form id="loginForm" class="login-form">
+                <label>
+                    <span>User ID</span>
+                    <input type="text" id="loginId" autocomplete="username" placeholder="Enter your ID" required>
+                </label>
+                <label>
+                    <span>Password</span>
+                    <input type="password" id="loginPassword" autocomplete="current-password" placeholder="Enter your password" required>
+                </label>
+                <button type="submit">Open Tree</button>
+                <div id="loginError" class="login-error" aria-live="polite"></div>
+            </form>
+        </div>
+    </div>
+
+    <div class="app-container">
+        <!-- Dashboard Header -->
+        <header class="dashboard-header">
+            <div class="logo">🚀 MiLife <span>Prototype</span></div>
+            <button id="themeToggle" class="theme-toggle" onclick="toggleTheme()">🌙</button>
+        </header>
+
+        <!-- Search Bar Overlay -->
+        <div class="search-overlay">
+            <input type="text" id="globalSearch" placeholder="🔍 Search by name or ID (Press Enter to Zoom)..."
+                onkeyup="handleGlobalSearch(event)">
+            <button id="searchButton" onclick="executeSearch()">Search</button>
+            <span id="searchResultCount"></span>
+        </div>
+
+        <main class="content-area">
+            <!-- Left Pane: Stats & Search Results -->
+            <aside class="left-pane" id="leftPane">
+                <div class="pane-header">Network Stats</div>
+                <!-- Intelligence Legend moved here -->
+                <div class="tree-legend-side">
+                    <div class="stat-item">
+                        <span class="stat-label">Levels Below:</span>
+                        <span id="levelsCount" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Network Size:</span>
+                        <span id="nodesCount" class="stat-value">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Pending:</span>
+                        <span id="mcCount" class="stat-value">0</span>
+                    </div>
+                </div>
+
+                <div class="search-results-section">
+                    <div class="pane-header" style="margin-top:20px;">Search Results</div>
+                    <div id="searchResultsList" class="results-list">
+                        <div class="empty-state">No active search</div>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="tree-container" id="captureArea">
+                <!-- Map Area -->
+
+                <svg id="treeSvg"></svg>
+                
+                <!-- Minimap Container -->
+                <div class="minimap-container" id="minimapContainer">
+                    <svg id="minimapSvg"></svg>
+                </div>
+
+                <div class="tree-controls">
+                    <button onclick="exportToImage()">📸 Export</button>
+                    <button onclick="resetTreeZoom()">📐 Reset View</button>
+                </div>
+                <div id="loadingOverlay" class="loading">Parsing Hierarchy...</div>
+            </div>
+
+            <!-- Right Pane: Node Info -->
+            <aside class="right-pane" id="rightPane">
+                <div class="pane-header">Selected Node</div>
+                <div id="nodeDetailsContent">
+                    <div class="empty-state">Click a node to view full details</div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
